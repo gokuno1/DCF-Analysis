@@ -18,6 +18,12 @@ public class FutureFCF {
 	public void setFcf(double fcf) {
 		this.fcf = fcf;
 	}
+	public double getPvfcf() {
+		return pvfcf;
+	}
+	public void setPvfcf(double pvfcf) {
+		this.pvfcf = pvfcf;
+	}
 	
 	
 }

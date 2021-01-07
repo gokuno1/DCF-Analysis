@@ -17,6 +17,7 @@ public class DCFAnalysisMain {
 		double netfcf = data.getAvgThreeYrFcf();//data.getCashFromOperatingActivities()-data.getCapitalExpenditure();
 		int year = 2015;
 		double fcf = 0.0;
+		double pvFcf = 0.0;
 	
 		List<FutureFCF> futureFcf = new ArrayList<FutureFCF>();
 		
@@ -24,9 +25,12 @@ public class DCFAnalysisMain {
 		{
 			FutureFCF future = new FutureFCF();
 			fcf=netfcf*(1+(data.getGrowthRate()/100));
+			double denominator = Math.pow((1+(data.getDiscountRate()/100)), i);
+			pvFcf = fcf/denominator;
 			System.out.println("fcf calculated "+fcf);
 			future.setFcf(fcf);
 			future.setYear(year);
+			future.setPvfcf(pvFcf);
 			futureFcf.add(future);
 			netfcf=fcf;
 			year=year+1;
@@ -86,7 +90,7 @@ public class DCFAnalysisMain {
 		double noOfOutstandingShares = 17;
 		
 		result.stream().forEach(mylist->{
-			System.out.println("year : "+mylist.getYear() +" fcf : "+mylist.getFcf());});
+			System.out.println("year : "+mylist.getYear() +" fcf : "+mylist.getFcf() + " present value : "+mylist.getPvfcf());});
 
 		double tenthYearFcf=result.get(9).getFcf();
 		System.out.println("10th year Future FCF is : "+tenthYearFcf);
