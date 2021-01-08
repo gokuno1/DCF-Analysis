@@ -4,6 +4,7 @@ public class DCFAnalysisData {
 	
 	private double netDebt;
 	private double growthRate;
+	private double growthRate1;
 	private double terminalGrowthRate;
 	private double discountRate;
 	//private double cashFromOperatingActivities;
@@ -40,6 +41,12 @@ public class DCFAnalysisData {
 	}
 	public void setNetDebt(double netDebt) {
 		this.netDebt = netDebt;
+	}
+	public double getGrowthRate1() {
+		return growthRate1;
+	}
+	public void setGrowthRate1(double growthRate1) {
+		this.growthRate1 = growthRate1;
 	}
 	
 	
