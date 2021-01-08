@@ -48,7 +48,8 @@ public class DCFAnalysisMain {
 		return terminalValue;
 	}
 	
-	public static double CalculatePresentValueForFCF(double discountRate, List<FutureFCF> listResult, double terminalValue, int futureYear, double netDebt)
+	public static double CalculatePresentValueForFCF(double discountRate, List<FutureFCF> listResult, double terminalValue, int futureYear, double netPvFcf,
+			double netDebt)
 	{
 		double presentValueOfFcf = 0 ;
 		double presentValueOfTerminalValue = 0;
@@ -65,7 +66,7 @@ public class DCFAnalysisMain {
 		
 		double presentValueOfTerminalValueDenominator = Math.pow((1+(discountRate/100)), 10);
 		
-		presentValueOfFcf = futureFcf/presentValueOfFcfDenominator;
+		presentValueOfFcf = netPvFcf/presentValueOfFcfDenominator;
 		presentValueOfTerminalValue = terminalValue/presentValueOfTerminalValueDenominator;
 		System.out.println("present value using discount rate : "+presentValueOfFcf);
 		System.out.println("present value of terminal value : "+ presentValueOfTerminalValue);
@@ -87,6 +88,9 @@ public class DCFAnalysisMain {
 		getAllData.setTerminalGrowthRate(3.5);
 		List<FutureFCF> result = EstimateFutureFCF(getAllData);
 		
+		double npvFcf=result.stream().mapToDouble(list->list.getPvfcf()).sum();
+		System.out.println("npv value : "+npvFcf);
+		
 		double noOfOutstandingShares = 17;
 		
 		result.stream().forEach(mylist->{
@@ -98,7 +102,7 @@ public class DCFAnalysisMain {
 		double terminalValue = CalculateTerminalValue(getAllData.getTerminalGrowthRate(), tenthYearFcf, getAllData.getDiscountRate());
 		System.out.println("Terminal value is : "+terminalValue);
 		
-		double pv = CalculatePresentValueForFCF(9, result, terminalValue, 2016, 5306);
+		double pv = CalculatePresentValueForFCF(9, result, terminalValue, 2016, npvFcf, 5306);
 		System.out.println(pv);
 		
 		double sharePrice=pv/noOfOutstandingShares;
