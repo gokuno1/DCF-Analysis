@@ -23,7 +23,7 @@ public class DCFAnalysisMain {
 		
 		for(int i=1;i<=10;i++)
 		{
-			if(i>6)
+			if(i>5)
 			{
 				FutureFCF future = new FutureFCF();
 				fcf=netfcf*(1+(data.getGrowthRate1()/100));
@@ -73,6 +73,8 @@ public class DCFAnalysisMain {
 		
 		double pVFcfFinal = 0;
 		
+		double totalPVofFCF = 0;
+		
 		int year = 2014;//Calendar.getInstance().get(Calendar.YEAR);
 		
 		int noOfYears = futureYear-year;
@@ -83,23 +85,26 @@ public class DCFAnalysisMain {
 		
 		double presentValueOfTerminalValueDenominator = Math.pow((1+(discountRate/100)), 10);
 		
+		double npv = listResult.stream().mapToDouble(list -> list.getPvfcf()).sum();
+		System.out.println("sum of all Net Present value : "+npv);
+		
 		presentValueOfFcf = netPvFcf/presentValueOfFcfDenominator;
 		presentValueOfTerminalValue = terminalValue/presentValueOfTerminalValueDenominator;
-		System.out.println("present value using discount rate : "+presentValueOfFcf);
+	//	System.out.println("present value using discount rate : "+presentValueOfFcf);
 		System.out.println("present value of terminal value : "+ presentValueOfTerminalValue);
-		System.out.println("future fcf of 2019 : " + futureFcf);
+	//	System.out.println("future fcf of 2019 : " + futureFcf);
 		
-		pVFcfFinal = presentValueOfFcf+presentValueOfTerminalValue;
-		
-		double totalPVofFCF= pVFcfFinal-netDebt;
-		
+		pVFcfFinal = presentValueOfTerminalValue+npv;
+		System.out.println("sum of present value of cash flows: "+pVFcfFinal);
+		totalPVofFCF= pVFcfFinal-netDebt;
+		System.out.println("total present value of free cash flow : "+totalPVofFCF);
 		return totalPVofFCF;
 		
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		DCFAnalysisData getAllData = new DCFAnalysisData();
-		getAllData.setAvgThreeYrFcf(208060.45);
+		getAllData.setAvgThreeYrFcf(140.36);
 		getAllData.setGrowthRate(18);
 		getAllData.setGrowthRate1(10);
 		getAllData.setDiscountRate(9);
@@ -107,9 +112,8 @@ public class DCFAnalysisMain {
 		List<FutureFCF> result = EstimateFutureFCF(getAllData);
 		
 		double npvFcf=result.stream().mapToDouble(list->list.getPvfcf()).sum();
-		System.out.println("npv value : "+npvFcf);
 		
-		double noOfOutstandingShares = 29400;
+		double noOfOutstandingShares = 17.081;
 		
 		result.stream().forEach(mylist->{
 			System.out.println("year : "+mylist.getYear() +" fcf : "+mylist.getFcf() + " present value : "+mylist.getPvfcf());});
@@ -120,7 +124,7 @@ public class DCFAnalysisMain {
 		double terminalValue = CalculateTerminalValue(getAllData.getTerminalGrowthRate(), tenthYearFcf, getAllData.getDiscountRate());
 		System.out.println("Terminal value is : "+terminalValue);
 		
-		double pv = CalculatePresentValueForFCF(9, result, terminalValue, 2016, npvFcf, 7482);
+		double pv = CalculatePresentValueForFCF(9, result, terminalValue, 2016, npvFcf, -218.6);
 		System.out.println(pv);
 		
 		double sharePrice=pv/noOfOutstandingShares;
