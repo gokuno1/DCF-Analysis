@@ -9,7 +9,7 @@ public class DCFAnalysisData {
 	private double discountRate;
 	//private double cashFromOperatingActivities;
 	//private double capitalExpenditure;
-	//private double outstandingShares;
+	private double outstandingShares;
 	private double avgThreeYrFcf;
 	
 	public double getAvgThreeYrFcf() {
@@ -47,6 +47,12 @@ public class DCFAnalysisData {
 	}
 	public void setGrowthRate1(double growthRate1) {
 		this.growthRate1 = growthRate1;
+	}
+	public double getOutstandingShares() {
+		return outstandingShares;
+	}
+	public void setOutstandingShares(double outstandingShares) {
+		this.outstandingShares = outstandingShares;
 	}
 	
 	

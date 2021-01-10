@@ -110,11 +110,12 @@ public class DCFAnalysisMain {
 		getAllData.setDiscountRate(9);
 		getAllData.setTerminalGrowthRate(3.5);
 		getAllData.setNetDebt(-218.6);
+		getAllData.setOutstandingShares(17.081);
 		List<FutureFCF> result = EstimateFutureFCF(getAllData);
 		
 		double npvFcf=result.stream().mapToDouble(list->list.getPvfcf()).sum();
 		
-		double noOfOutstandingShares = 17.081;
+		double noOfOutstandingShares = getAllData.getOutstandingShares();
 		
 		result.stream().forEach(mylist->{
 			System.out.println("year : "+mylist.getYear() +" fcf : "+mylist.getFcf() + " present value : "+mylist.getPvfcf());});
