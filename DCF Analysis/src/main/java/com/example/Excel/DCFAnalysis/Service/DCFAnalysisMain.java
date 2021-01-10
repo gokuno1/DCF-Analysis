@@ -109,6 +109,7 @@ public class DCFAnalysisMain {
 		getAllData.setGrowthRate1(10);
 		getAllData.setDiscountRate(9);
 		getAllData.setTerminalGrowthRate(3.5);
+		getAllData.setNetDebt(-218.6);
 		List<FutureFCF> result = EstimateFutureFCF(getAllData);
 		
 		double npvFcf=result.stream().mapToDouble(list->list.getPvfcf()).sum();
@@ -124,7 +125,7 @@ public class DCFAnalysisMain {
 		double terminalValue = CalculateTerminalValue(getAllData.getTerminalGrowthRate(), tenthYearFcf, getAllData.getDiscountRate());
 		System.out.println("Terminal value is : "+terminalValue);
 		
-		double pv = CalculatePresentValueForFCF(9, result, terminalValue, 2016, npvFcf, -218.6);
+		double pv = CalculatePresentValueForFCF(getAllData.getDiscountRate(), result, terminalValue, 2016, npvFcf, getAllData.getNetDebt());
 		System.out.println(pv);
 		
 		double sharePrice=pv/noOfOutstandingShares;
