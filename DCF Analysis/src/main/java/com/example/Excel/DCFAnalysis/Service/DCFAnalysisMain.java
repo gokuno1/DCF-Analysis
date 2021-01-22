@@ -104,13 +104,13 @@ public class DCFAnalysisMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		DCFAnalysisData getAllData = new DCFAnalysisData();
-		getAllData.setAvgThreeYrFcf(140.36);
-		getAllData.setGrowthRate(18);
+		getAllData.setAvgThreeYrFcf(1241.52);
+		getAllData.setGrowthRate(15);
 		getAllData.setGrowthRate1(10);
 		getAllData.setDiscountRate(9);
 		getAllData.setTerminalGrowthRate(3.5);
-		getAllData.setNetDebt(-218.6);
-		getAllData.setOutstandingShares(17.081);
+		getAllData.setNetDebt(504.7);
+		getAllData.setOutstandingShares(306.19);
 		List<FutureFCF> result = EstimateFutureFCF(getAllData);
 		
 		double npvFcf=result.stream().mapToDouble(list->list.getPvfcf()).sum();
